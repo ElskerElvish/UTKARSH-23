@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.html' %}
+<body>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+    jQuery(window).load(function() {
+        // will first fade out the loading animation
+        jQuery("#status").fadeOut();
+        // will fade out the whole DIV that covers the website.
+        jQuery("#preloader").delay(1000).fadeOut("slow");
+        })
+    </script>
+    <div id="preloader" >
+        <div id="status">&nbsp;</div>
+    </div>
+
+    <div class="showAlerts">
+        <div class="showAlerts_content">
+            <img src="{% static 'media/icons/logo.png' %}" >
+            <p>Registrations will be closed on March 27, 10:00 PM</p>
+            <button onclick="$('.showAlerts').fadeOut();">Ok</button>
+        </div>
+    </div>
+
+    {% include 'nav.html' %}
+    
+    <!-- <header style="background-image: url('{% static 'media/backgrounds/homescreenbg.jpg' %}');">
+        <a name="homesection"></a>
+        <div class="overtext" id="overtext">
+            <h3>Biggest Festival of Lucknow's Best Educational Group</h3>
+            <h2 id="text" align="center">UTKARSH'23</h2>
+            <p><span id="countdn">0Day 12Hours 59Minutes 59Seconds</span></p>                
+        </div>
+        <div id="tsparticles" class="tsparticles"></div>
+    </header> -->
+
+    <header>
+        <a name="homesection"></a>
+        <div id="large-header" class="large-header"  style="background-image: url('{% static 'media/backgrounds/homescreenbg.jpg' %}');">
+
+            <div class="overtext" id="overtext">
+                <h3>Biggest Festival of Lucknow's Best Educational Group</h3>
+                <h2 id="text" align="center">UTKARSH'23</h2>
+                <p><span id="countdn">0Day 12Hours 59Minutes 59Seconds</span></p>
+            </div>
+            <canvas id="demo-canvas"></canvas>
+        </div>
+
+    </header>
+
+    <a name="infosection"></a>
+    <section class="bgvideo" style="background-image: url('{% static 'media/backgrounds/bluepink.jpg' %}') ">
+        <div class="right">
+            <div class="forLogo">
+                <img src="{% static 'media/icons/logo.png' %}" >
+            </div>
+            <div class="innerContent">
+                <h2>BBDEG PRESENTS THE MUCH AWAITED ANNUAL FEST : UTKARSH 2023</h2>
+                <p>Babu Banarasi Das Educational Group presents the annual event “Utkarsh 2023”, to value the advancement in the arts, cultural pursuits, and athletics in addition to academics. One of our college's subtle nuances is the equal focus we give to every aspect of the student's development of their fundamental skills and personas. And this year, in a bid to promote an ecologically friendly environment, we organized the fest featuring GO GREEN WORLD Concept. So, lead the scene and keep it green.</p>
+    
+                <button class="glowing-btn">Explore More</button>
+            </div>
+        </div>
+    </section> 
+
+
+
+    <div class="motodiv">
+      <video laysinline autoplay muted loop style="width:100%;">
+            <source src="{% static 'media/backgrounds/go green.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+
+
+
+    <main style="background-image: url('{% static 'media/backgrounds/events.jpg' %}');">
+        <a name="eventsection"></a>
+        <h1>Events</h1>
+
+        <div class="slider_cards" style="margin-bottom: 50px;">
+            {% for event in events %}
+            <div class="card">
+                <div class="textwala">
+                    <img src="{{ event.image.url }}">
+                    <h3>{{ event.name }}</h3>
+                    <p>{{ event.mini_description }}</p>
+                </div>
+                
+                <div class="imgwala">
+                    <img src="{{ event.body_background.url }}" class="imgwalaimg">
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="slider_cards" style="margin-bottom: 80px;">
+            <h3 align="center"><a href="events/?q=all" class="gotoevents" >Go to Events</a></h3>
+        </div>
+        
+        <div class="counter_container">
+
+            <div class="countter">
+                <img src="{% static 'media/icons/calendar.png' %}">
+                <div class="cont">
+                    <h3>3</h3>
+                    <p><b>Days</b> of Event</p>
+                </div>
+            </div>
+
+
+            <div class="countter">
+                <img src="{% static 'media/icons/prize.png' %}">
+                <div class="cont">
+                    <h3>80</h3>
+                    <p><b>Win</b> Prizes</p>
+                </div>
+            </div>
+
+            <div class="countter">
+                <img src="{% static 'media/icons/man.png' %}">
+                <div class="cont">
+                    <h3>1463</h3>
+                    <p><b>Participants</b> Registered</p>
+                </div>
+            </div>
+      
+        </div>
+
+
+    </main>  
+
+    <div class="djnight" style="background-image: url('{% static 'media/backgrounds/edmnight.jpg' %}'); " >
+        <div class="texts">
+            <h1>EDM DJ Night</h1>
+            <p>DJ Rakesh is all set to light up the final night of Utkarsh 2K23. Participants get free entry. If you are not a participant, book passes from the below button to be a part of a fabulous night with your friends that you would remember!!!</p>
+        </div>
+
+    </div>
+
+    <div class="teams" style="background-image: url('{% static '/media/backgrounds/5433143.jpg' %}');"> 
+
+        <div class="throwback">
+            <a name="throwbacksection"></a>
+            <h1>Throwback </h1>
+
+
+            <swiper-container class="mySwiper" slides-per-view="3" centered-slides="true" space-between="30" pagination="true"
+            pagination-type="fraction" navigation="true">
+            {% for tb in throwback %}
+            <swiper-slide>
+                 <img src="{{ tb.image.url }}" alt="" class="imgwalaimg" style="display:block;">
+            </swiper-slide>
+            {% endfor %}
+          </swiper-container>
+ 
+    
+        <a name="teamsection"></a>
+        <h1>Team</h1>
+        <div class="slider_cards teamsaboutslidercards">
+            {% for p in team %}
+
+            <div class="profiler">
+                <div class="container_img">
+                    <div class="imge">
+                        <img src="{{ p.image.url }}">
+                    </div>
+                    <div class="text_container">
+                        <h3>{{ p.name }}</h3>
+                        <hr>
+                        <p>{{ p.about }}</p>
+                       
+                    </div>
+                </div>
+                <div class="profiler_over_text">
+                    <div class="text_container">
+                        <h3>About</h3>
+                        <hr>
+                        <p>{{ p.feedback }}</p>
+                        <p>addres : {{ p.address }}</p>
+                        <a href="{{ p.insta_url }}" class="teamaboutA"><i class="fa fa-instagram"></i></a>
+                        <a href="{{ p.github_link }}" class="teamaboutA"><i class="fa fa-github"></i></a>
+                        <a href="{{ p.github_link }}" class="teamaboutA"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    
+        {% include "footer.html" %}
+    </div>
+</body>
+<style type="text/css">
+.showAlerts{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #ffffff00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999999999999999999999999999;
+}
+.showAlerts_content{
+    background-color: white;
+    padding:20px;
+    border-radius: 6px;
+}
+.showAlerts_content p{
+    font-size:25px;
+    font-family: 'Exo 2';
+    font-weight: bold;
+}
+.showAlerts_content button{
+    border: 1.5px solid black;
+    padding:10px 40px;
+    border-radius: 6px;
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+    margin-bottom:20px;
+    
+}
+.showAlerts_content img{
+    height:200px;
+    width: 200px;
+    display: block;
+    margin: auto;
+}
+</style>
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js%E2%80%99"></script>
+<script src="{% static 'js/eff1.js' %}"></script>
+</html>

@@ -1,0 +1,246 @@
+{% load static %}
+<nav id="navbar"> 
+    <div class="nav_items">
+
+        <div class="forlogo">
+            <a href="../"><img src="{% static 'media/icons/logo.png' %}"></a>
+        </div>
+
+        <div class="forlinks">
+            <div class="nav_menu_btn">
+                <button class="nav_menu_btn_button">Menu <i class="fa fa-bars"></i></button>
+            </div>
+
+            <div class="nav_links">
+                <a href="../" class="nav-link scrollto">Home</a>
+                <a href="../#infosection" class="nav-link scrollto">About</a>
+                <a href="../events/?q=all" class="nav-link scrollto">Events</a>
+                <a href="../#teamsection" class="nav-link scrollto">Team</a>
+                <a href="../#contactsection" class="nav-link scrollto">Contact</a> 
+                <a href="../gallery" class="nav-link scrollto">Gallery</a> 
+            </div>
+        </div>
+        <div class="forlogins">
+            {% if request.user.is_authenticated %}
+            <button class="logincl" onclick="viewUserProfile('{{ user.username }}')">
+                {{ user.first_name.0 }}
+            </button>
+            {% else %}
+            <a href="../registerUser" class="logincl" ><button>Login</button></a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+{% if user.is_authenticated %}
+<div class="popupwrappper" style="display:none;  background-image: url('{% static '/media/backgrounds/green.jpg' %}');">
+    <i class="fa fa-close" id="closeBtn"></i>
+    <div class="dashboard">
+
+        <div class="dash_left">
+            <div class="dash_left_wrapper">
+                <div class="imgandothers">
+                    <img src="{% static 'media/icons/man.png' %}">
+                    <h3>{{ ru.name }}</h3>
+                    <p>Registration id: {{ ru.uk_id }}</p>
+                    {% if not ru.is_ambassador %}
+                    <p>Refferal Id: {{ ru.ca_refferal_code }}</p>
+                    {% endif %}
+            
+                    {% if ambassador_data %}
+                    <p>CA Id: {{ ambassador_data.1.ambassador_id }}</p>
+                    {% endif %}
+                </div>
+    
+                <div class="dash_tabs">
+                    <button type="button" onclick="sow(1);" class=""><i class="fa fa-user"></i>Profile </button>
+                    <button type="button" onclick="sow(2);" class=""><i class="fa fa-calendar"></i>Events </button>
+                    <button type="button" onclick="sow(3);" class=""><i class="fa fa-money"></i>Payment </button>
+                    {% if ambassador_data %}
+                    <button type="button" onclick="sow(4);" class=""><i class="fa fa-money"></i>CA Section </button>
+                    {% endif %}
+                    <a href="../logout" ><button style="color:rgb(255, 85, 85)"><i class="fa fa-sign-out"> </i>Logout</button></a>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="dash_right q1" style="display:none;"> 
+            <table>
+                <tr>
+                    <th align="left" colspan="2">Details</th>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>{{ ru.gender }}</td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td>{{ ru.city }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ ru.email }}</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>+91 {{ ru.phone }}</td>
+                </tr>
+                <tr>
+                    <td>Colllege</td>
+                    <td>{{ ru.college_name }}</td>
+                </tr>
+                <tr>
+                    <td>Course</td>
+                    <td>{{ ru.course }}</td>
+                </tr>
+
+                <tr>
+                    <td>Accomodation Details: </td>
+                    <td>The Total amount of Rs. 700/- is to be Paid for Individual ( for 3 Days) at the venue. If you Want the accomodation tick button below</td>
+                </tr>
+
+                <tr>
+                    <td>Want Accomodation?</td>
+                    <td>
+                        <form method="post" action="../../accomodation/" >
+                            <span><input type="radio" value="y" name="accomodationUpdate" {% if accomodation_details %}checked{% endif %} > Yes </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span><input type="radio" value="n" name="accomodationUpdate"  {% if not accomodation_details %}checked{% endif %} > No</span>
+                            <button class="btnsssssss">UPDATE</button>
+                        </form>
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+
+        <div class="dash_right q2" style="display: none;">
+            <h2 style="color:white;">Individual: </h2>
+
+            <div class="evlists">
+                {% if enrolled_events %}
+                    {% for enrollments in enrolled_events %}
+                        <div class="participations" id="enrolledeventbox{{ enrollments.id }}">
+                            <a href="../../events/?={{ enrollments.parent_sub_event.id }}"><img src="{{ enrollments.image.url }}"></a>
+                            <div class="participate_cards">
+                                <h3>{{ enrollments.name }}</h3>
+                                <p>{{ enrollments.parent_sub_event.name }}</p>
+                                <P id="eventenrollboxerror{{ enrollments.id }}"></P>
+                                <button class="delete-btn" onclick="unEnroll('{{ enrollments.id }}', '{{ user.username }}',false)">Delete</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h3 style="color:white;">Oops! You haven't registered in any events.. Go to <a href="../../events?q=all">Event Page </a>to Enroll yourself</h3>
+                {% endif %}
+            </div>
+            <br><br>
+            <h2 style="color:white;">Team Participations: </h2><br>
+            {% for te in tevr %}
+                <div class="participations" id="enrolledeventbox{{ te.event_registered.id }}">
+                    <img src="{{ te.event_registered.image.url }}">
+                    <div class="participate_cards">
+                        <h3>{{ te.event_registered.name }} ({{ te.event_registered.parent_sub_event }})</h3>
+                            <P id="eventenrollboxerror{{ te.id }}"></P>
+                            <button class="delete-btn" onclick="unEnroll('{{ te.event_registered.id }}', '{{ user.username }}',true)">Delete</button>
+
+                        <h4>Team Members: </h4>
+                            <ul  style="color:white;">
+                                {% for temem in te.team_members.all %}
+                                <li style="margin-left: 30px;">Name: {{temem.name}} ({{temem.uk_id}}) | Phone: {{ temem.phone }}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="dash_right q3" style="display:none;">
+            <h1>Payments </h1>
+            <br>
+            <p>This registration is PROVISIONAL.<p>
+            <p>The registration amount is to be submitted at the venue.</p>
+            <p style="overflow-wrap: break-word;">The registration amount other than SPORTS and INFORMAL category is Rs. 1000/- </p>
+            <br>
+
+            <p>Payment Summary:</p>
+            <table>
+                <tr>
+                    <td>Type</td>
+                    <td>Amount</td>
+                </tr>
+                {% for summary in payments.items %}
+                <tr>
+                    <td>{{ summary.0 }}</td>
+                    <td>Rs. {{ summary.1 }}/-</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <p>To know more please prefer <a style="color:wheat" target="_blank" href="../../contents/?n=Utkarsh RuleBook 2023.pdf">Rule Book</a> </p>
+        </div>
+        
+
+       
+        <div class="dash_right q4" style="display:none; color:white; font-family: 'exo 2';">
+            <h1>Campus Ambassador Program</h1><br><br>
+            <p style="color:white;">NOTE: IF the number of refferals from your CA Id exceeds 20 students an additional amount of Rs. 100/- will be applicable on every student.</p>
+            <br><h3>List of people using your refferal: </h3><br>
+            {% if ambassador_data.0 %}
+                {% for ca_related in ambassador_data.0 %}
+                    <ul>
+                        <li style="display:block;">
+                            <h3>UK Id: {{ ca_related.uk_id }} | Name: {{ ca_related.name }} | College: {{ ca_related.college_name }}</h3>
+                        </li>
+                    </ul>
+                {% endfor %}
+            {% else %}
+                <h3>Empty</h3>
+            {% endif %}
+        </div>
+
+
+
+
+    </div>
+</div>
+{% endif %}
+
+
+<div class="announcements" >
+    <div id="announcements-wrapper">
+        <div class="anncoument-content" id="announcementsBox">
+            <div class="announcements-header">
+                <h3>Announcements/Results</h3>
+                <button type="button" id="announcementsResultsbtn"><i class="fa fa-close"></i></button>
+            </div>
+
+            <div class="announcements-messages-container">
+                <div class="announcements-messages">
+                    <h3>Title</h3>
+                    <p>Pfasdsadfs sdf sdf asdf asd asdf asdf asdf </p>
+                    <p class="ddtte">Date time</p>
+                </div>
+        
+            </div>
+
+        </div>
+    </div>
+    <div class="ico">
+        <img src="{% static 'media/icons/mic.png' %}" id="showAnn">
+    </div>
+</div>
+
+
+<style>
+@font-face {
+  font-family: 'expanse';
+  src: url("{% static 'css/fonts/Expanse.otf' %}");
+}
+@font-face {
+  font-family: 'voyager';
+  src: url("{% static 'css/fonts/VOYAGER.ttf' %}");
+}
+
+</style>
+

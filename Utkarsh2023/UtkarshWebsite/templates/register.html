@@ -1,0 +1,164 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in & Sign up Form</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+  </head>
+  <body>
+    <main style="background-image:url('{% static 'media/backgrounds/green 2.jpg' %}');">
+      <div class="box">
+        
+        <div class="inner-box">
+          <div class="forms-wrap">
+
+            <form action="" method="POST" class="sign-in-form">
+              {% csrf_token %}
+              <input name="formType" value="login" hidden>
+
+              <div class="logo">
+                <img src="{% static 'media/icons/Uk.png' %}" alt="easyclass" />
+                <h4>Utkarsh</h4>
+              </div>
+
+              <div class="heading">
+                <h2>Welcome Back</h2>
+                <h6>Not registred yet?</h6>
+                <a href="#" class="toggle">Register</a>
+              </div>
+
+              <div class="actual-form">
+                <div class="input-wrap">
+                  <input type="text" name="loginusername" class="input-field" autocomplete="off" required />
+                  <label>Email/Utkarsh Id</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input type="password" name="loginuserpass" class="input-field" autocomplete="off" required />
+                  <label>Password</label>
+                </div>
+
+                {% if err %}
+                  <span>{{ err }}</span>
+                {% endif %}
+
+                <input type="submit" value="Sign In" class="sign-btn" />
+
+                <p class="text">
+                  Forgotten your password or you login datails?
+                  <a href="../../forgot-password">Get help</a> signing in
+                </p>
+              </div>
+            </form>
+
+            <form action="" method="POST" class="sign-up-form">
+              <input name="formType" value="register" hidden>
+              {% csrf_token %}
+
+              <!-- <div class="logo">
+                <img src="{% static 'media/icons/Uk.png' %}" alt="easyclass" />
+                <h4>Utkarsh</h4>
+
+              </div> -->
+
+              <div class="heading">
+                <!-- <h2>Get Started</h2> -->
+                <h6>Already have an account?</h6>
+                <a href="#" class="toggle">Sign in</a>
+                {% if foo %}
+                <h3>{{ foo }}</h3>
+                {% endif %}
+              </div> 
+
+              <div class="actual-form">
+                <div class="input-wrap">
+                  <input type="text" name="regusername" id="regusername"  value="{{ name }}" class="input-field" required />
+                  <label>Name</label>
+                </div>
+                <div class="input-wrap">
+                  <input type="text" name="regemail" id="regemail" class="input-field" value="{{ email }}" required />
+                  <label>Email</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input type="text" name="regphone" id="regphone" class="input-field" value="{{ phone }}"  required />
+                  <label>Contact/WhatsApp Number</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input type="text" name="regcollege" id="regcollege" class="input-field" value="{{ college }}" required />
+                  <label>College</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input type="text" name="course" id="course" class="input-field" value="{{ course }}" required />
+                  <label>Course</label>
+                </div>
+
+                <select class="genderbutton"  name="reggender" id="reggender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option> 
+                </select>
+                
+
+                <div class="input-wrap">
+                  <input type="text" class="input-field" id="regcity" name="regcity"  value="{{ city }}" required/>
+                  <label>City</label>
+                </div>
+
+                <!-- <div class="input-wrap">
+                  <input type="text" class="input-field" id="carefferal" name="carefferal" required/>
+                  <label>CA Refferal</label>
+                </div> -->
+
+                <div class="input-wrap">
+                  <input type="password" name="regpass" id="regpass" class="input-field" required />
+                  <label>Password</label>
+                </div>
+
+                <input type="submit" id="sendOTPBtn" value="Submit" class="sign-btn" />
+
+                <p class="text">
+                  By signing up, I agree to the
+                  <a href="#">Terms of Services</a> and
+                  <a href="#">Privacy Policy</a>
+                </p>
+              </div>
+            </form>
+          </div>
+
+          <div class="carousel">
+            <div class="images-wrapper">
+              <img src="{% static 'media/backgrounds/image1.png' %}" class="image img-1 show" alt="" />
+              <img src="{% static 'media/backgrounds/image2.png' %}" class="image img-2" alt="" />
+              <img src="{% static 'media/backgrounds/image3.png' %}" class="image img-3" alt="" />
+            </div>
+
+            <div class="text-slider">
+              <div class="text-wrap">
+                <div class="text-group">
+                  <h2>Awesomeness is waiting</h2>
+                  <h2>Participate in amazing events</h2>
+                  <h2>Invite frieds to the jam</h2>
+                </div>
+              </div>
+
+              <div class="bullets">
+                <span class="active" data-value="1"></span>
+                <span data-value="2"></span>
+                <span data-value="3"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="{% static 'js/register.js' %}"></script>
+
+  </body>
+</html>

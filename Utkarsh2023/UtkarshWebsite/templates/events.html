@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% include 'head.html' %}
+    <link rel="stylesheet" href="{% static 'css/events.css' %}" type="text/css">
+
+    <title>Events Utkarsh</title>
+</head>
+{% if not sub_sub_event.0.parent_sub_event.parent_event.body_background.url %}
+<body background="{% static 'media/backgrounds/d.jpg' %}"></body> -->
+{% else %}
+<body background="{{ sub_sub_event.0.parent_sub_event.parent_event.body_background.url }}">
+{% endif %}
+
+{% include "announcements.html" %}
+{% include "nav.html" %}
+
+
+<div class="eventpage_nav">
+    <ul class="evnavul">
+        <li><a href="?q=all">All</a></li>
+        {% for event in events %}
+            <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">{{ event.name }}</a>
+            <div class="dropdown-content">
+                    {% for sub_event in subevents %}
+                    {% if sub_event.parent_event.name == event.name %}
+                    <a href="?q={{ sub_event.id }}">{{ sub_event.name }}</a> 
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+</div>
+
+
+
+<div class="events_listing" style="margin-top:20px">
+    <div class="events">
+        {% for subsubevent in sub_sub_event %}
+        <div class="subevents_card">
+            <img src="{{ subsubevent.image.url }}">
+            <div class="subevent_info">
+                <h3>{{ subsubevent.name }} {% if subsubevent.is_team_event %}(Team Event){% endif %}</h3>
+                <h4>{{ subsubevent.parent_sub_event.parent_event.name }} - {{ subsubevent.parent_sub_event.name }} </h4>
+                <P>{{ subsubevent.mini_description }} </P>
+            </div>
+            
+            <div class="evbuttons">
+                <button onclick="showLearnMore('{{ subsubevent.id }}')">Learn More</button>
+            </div>
+            
+            
+        </div>
+
+        <div class="popup_learnmore" id="{{ subsubevent.id }}" style="display:none;">
+
+            <div class="learnmore_container">
+                    <div class="subevents_card">
+                        <img src="{{ subsubevent.image.url }}">
+                        <div class="subevent_info">
+                            <h3>{{ subsubevent.name }}</h3>
+                            <h4>{{ subsubevent.parent_sub_event.name }} </h4>
+                            <P>{{ subsubevent.descp }} </P>
+                        </div>
+
+                        {% if subsubevent.is_team_event %}
+                            <div class="reg_team">
+                                <a href="../../RegisterTeam?eid={{ subsubevent.id }}"><button type="button">Regisiter Your Team</button></a>
+                            </div>
+                        {% else %}
+                        <div class="evbuttons">
+                            {% if subsubevent in enrolled_events %}
+                                <button>Already Enrolled</button>
+                            {% else %}
+                            <form method="POST" action="../../events/">
+                                {% csrf_token %}
+                                <input type="text" name="event_enroll" value="{{ subsubevent.id }}" hidden>
+                                <button type="submit">Enroll</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <div class="reg_team">
+                            <br>
+                            <button onclick="c('{{ subsubevent.id }}')">Close</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+</div> 
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

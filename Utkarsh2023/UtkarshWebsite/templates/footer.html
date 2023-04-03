@@ -1,0 +1,58 @@
+{% load static %}
+
+
+<footer>
+    <div class="footer_items">
+        <div class="footer_about">
+            <p>An initiative by</p>
+            <img src="{% static 'media/icons/bbd logo.png' %}">
+        </div>
+
+        <div class="contacts_us">
+            <a name="contactsection"></a>
+            <h2>Contact Us</h2>
+            <h3>Phone: +91 000 000 0000</h3>
+            <h3>Email: user@gmail.com</h3>
+        </div>
+
+        <div class="quicklinks">
+            <h3>Quick Links</h3>
+            <a href="../">Home</a>
+            <a href="../#infosection">About us</a>
+            <a href="../events/?q=all">Events</a>
+            <a href="">Brochure</a>
+            <a href="">Rule Book</a>
+            <a href="../../showMap">Map</a>
+        </div>
+
+        <div class="map">
+
+            <div class="map-small">
+                <a href="../../contents/?n=BBD Campus Map.pdf" target="_blank"><img src="{% static 'media/mini map.jpg' %}"></a>
+            </div>
+            <!-- <a href="javascript:void(0)" class="map-big"> <img src="{% static 'media/mini map.jpg' %}"> </a>
+            <div class="img-lgt">
+                <a href="javascript:void(0)" class="cls-map"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                <img src="{% static 'media/big map.jpg' %}"">
+            </div> -->
+        
+            <div class="map-big" hidden>
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                <img src="{% static 'media/big map.jpg' %}">
+            </div>
+        </div>
+
+
+
+    </div>
+   
+
+    <div class="credt">
+        <p>Copyrght&copy; 2023 Babu Banarasi Educational Group. All rights reserved.</p>
+        <p>Lucknow, Uttar Pradesh 226028</p>
+        <p>India</p>
+    </div>
+</footer>
+<script src="{% static 'js/eff1.js' %}"></script>
+<script src="{% static 'js/swiper-element-bundle.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>

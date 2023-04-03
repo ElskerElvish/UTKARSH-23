@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="banner">
+        <h1 align="center">Gallery</h1>
+    </div>
+
+    {% if filter %}
+        <div class="gallery_container">
+            <p>Day {{ image.0.day }}</p>
+            <div class="image-box">
+                {% for img in  image %}
+                    <div class="g">
+                        <div class="h">
+                            <img src="{{ img.img.url }}" alt="{{ img.title }}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        {% for day in days %}
+        <div class="gallery_container">
+            <p>Day {{day}}</p>
+            <div class="image-box">
+                {% for img in  image %}
+                {% if day == img.day %}
+                <div class="g">
+                    <div class="h">
+                        <img src="{{ img.img.url }}" alt="{{ img.title }}" onclick="ViewFullDisplay('{{ img.id }}');">
+                    </div>
+
+                    <div class="fullScr" style="display: none;">
+                        <img id="{{ img.id }}" src="{{ img.img.url }}" alt="{{ img.title }}" id="{{ img.id }}" onclick="ViewFullDisplay('{{ img.id }}');">
+                    </div>
+
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="viewmore">
+                <a href="./?day={{day}}"><button type="button" class="">View All</button></a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    
+
+</body>
+<script type="text/javascript">
+    function ViewFullDisplay(id){
+        let im = document.getElementById(`${id}`);
+        im.style.display = 'block';
+    }
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300&family=Tilt+Neon&display=swap');
+*{margin:0px; padding:0px; box-sizing:border-box;}
+
+.fullScr{
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    padding: 50px;
+}
+
+body{
+    background-image: url('');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.g{ 
+    height:400px;
+    width: 350px;
+    background-image: url('https://static.vecteezy.com/system/protected/files/011/288/796/vecteezy_watercolor-illustration-square-frame-with-green-leaves-and_11288796_30.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h{
+    height: 76%;
+    width: 61%;
+}
+
+.banner h1{
+    font-family: 'Tilt Neon', cursive;
+    background-image: url('https://cdn.pixabay.com/photo/2014/10/29/01/00/logo-507440_960_720.png');
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size:cover;
+    text-align: center;
+    color: black;
+    padding:80px 10px;
+    font-size:35px;
+    background-color:white;
+}
+
+.image-box{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+}
+.gallery_container{
+    /* background-color: red; */
+    margin-bottom:10px;
+    padding: 10px;
+
+}
+.image-wrapper{
+    padding: 10px;
+    height: 300px;
+    width: 300px;
+    position: relative;
+}
+
+.h img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+   
+}
+.gallery_container p{
+    font-family: 'Tilt Neon', cursive;
+    text-align: center;
+    /* padding: 10px; */
+    font-size: 40px;
+    margin:10px 100px;
+    border-bottom: 1px solid black;
+}
+.viewmore{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.viewmore button{
+    border: none;
+    background-color:blue;
+    color: white;
+    padding:10px 50px;
+    font-size:20px;
+    border-radius: 6px;
+}
+</style>
+</html>

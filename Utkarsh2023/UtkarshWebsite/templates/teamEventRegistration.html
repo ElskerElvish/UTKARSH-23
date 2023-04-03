@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+</head>
+<body background="{% static 'media/backgrounds/5433143.jpg' %}">
+    {% include 'nav.html' %}
+
+    <div class="teamEventRgitration">
+        <form method="post" action="">
+            {% csrf_token %}
+            <label>
+                <h3>Team Event Registration</h3>
+            </label>
+
+            <label>
+                <span style="color:red">{{ err }}</span>
+            </label>
+
+            <label for="">
+                <span>Team Leader UK Id</span>
+                <input type="text" name="team_leader_uk_id" value="{{ user.username }}" disabled style="width:100%;">
+            </label>
+    
+            <label>
+                <span>Event Name</span>
+                <input type="text" name="eventid" value="{{ eid.name }}" disabled style="width:100%;">
+            </label>
+
+            <label>
+                <span>Add UK Id of your teammates seperated by comma: </span>
+                <input type="text" name="teammates" value="{{team_entries}}" placeholder="e.g. UK0000,UK123,UK465" style="width:100%;" required/>
+            </label>
+
+            <label>
+                <input type="submit" style="width:100%;" value="Submit">
+            </label>
+        </form>
+
+    </div>
+
+    {% include "footer.html" %}
+</body>
+<style>
+    body{
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    
+
+</style>
+</html>

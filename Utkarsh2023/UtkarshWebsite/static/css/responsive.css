@@ -1,0 +1,93 @@
+@media screen and (max-width:900px) {
+    .popupwrappper{
+        background-image:none !important;
+        padding-bottom: 100px;
+        background-color: #115245   ;
+    }
+    .participations{
+        margin: auto;
+    }
+    .counter_container{
+        justify-content: left;
+        padding-left:20px;
+    }
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    .right .innerContent h2{
+        font-size:18px;
+    }
+    .right .innerContent p{
+        font-size:15px;
+    }
+    .forlinks{
+        position: relative;
+    }
+    .nav_links{
+        position: absolute;
+        top: 2em;
+        background-color: rgb(22 22 22);
+        height: 0px;
+
+    }
+    .nav_links a{
+        padding: 8px 5px 8px 10px;
+        display:block;
+        border-radius: 0px;
+        width: 150px;
+    }
+    .nav_menu_btn{
+        display: block;
+    }
+   
+    .forlinks:hover .nav_links{
+        height: 180px;
+    }
+
+    .overtext h3 {
+        text-align: center;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+    .overtext p {
+        text-align: center;
+        word-spacing: 3px;
+        letter-spacing: 0px;
+    }
+    .overtext h2{
+        font-size:50px;
+    }
+    .dashboard{
+        padding: 20px;
+        flex-direction:column;
+        display: block;
+    }
+    .dash_left, .dash_right{
+        display: block;
+        height:100%;
+        width: 100%;
+    }
+    .dash_right{
+        margin: 20px 0px 0px 0px;
+        font-size: 15px;
+    }
+    .q1 table th{
+        font-size:20px;
+    }
+    .q1 table td{
+        font-size:15px;
+        letter-spacing:2px;
+    }
+
+    .info .right {
+        margin-bottom: 50px;
+    }
+
+    .footer_about img {
+        width: 260px;
+    }
+    .innerContent{
+        max-width: 100%;
+      }
+}
+  
